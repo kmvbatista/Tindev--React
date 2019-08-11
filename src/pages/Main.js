@@ -12,6 +12,7 @@ import './Main.css'
 
 
 
+
 export default function Main({match}) {
 
     const [users, setUsers]= useState([]);
@@ -28,11 +29,11 @@ export default function Main({match}) {
     } , [match.params.id]);
 
     async function handleLike(id) {
-        console.log(id);
+        await api.post(`/devs/${id}/likes`, null, {headers: { user :match.params.id } });
     }
 
     async function handleDislike(id) {
-        console.log(id);
+        await api.post(`/devs/${id}/dislikes`, null, {headers: { user :match.params.id } });
     }
 
     return (
