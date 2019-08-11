@@ -1,14 +1,33 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import logo  from '../assets/logo.svg'
 
 import like from '../assets/like.svg'
 import dislike from '../assets/dislike.svg'
 
+import api from '../services/api'
+
 import './Main.css'
 
 
+
+
 export default function Main({match}) {
+
+    const [users, setUsers]= useState([]);
+    useEffect( () => {
+        async function loadUsers() {
+            const response = await api.get('/devs', {
+                headers: {user : match.params.id}
+            });
+            console.log(response.data);
+        }
+        loadUsers();
+
+        setUsers(response.data);
+
+
+    } , [match.params.id]);
     return (
         <div className="main-container">
             <img src={logo} alt="tindev"></img>
