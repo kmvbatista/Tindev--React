@@ -30,16 +30,16 @@ export default function Main({match}) {
 
     async function handleLike(id) {
         await api.post(`/devs/${id}/likes`, null, {headers: { user :match.params.id } });
+        setUsers(users.filter(user => user._id != id));
     }
 
     async function handleDislike(id) {
         await api.post(`/devs/${id}/dislikes`, null, {headers: { user :match.params.id } });
+        setUsers(users.filter(user => user._id != id));
     }
 
-    return (
-        <div className="main-container">
-            <img src={logo} alt="tindev"></img>
-            <ul>
+    const showAll= () => {
+        return (<ul>
                 {users.map(user => ( 
                     <li key={user._id}>
                         <img src={user.avatar} alt={user.name} ></img>
@@ -60,7 +60,19 @@ export default function Main({match}) {
                         </div>
                     </li>
                 ))}
-            </ul>
+            </ul>)
+    }
+
+    const showNone= () => {
+        return (
+            <div className="empty">Acabaram os usuários :( </div>
+        )
+    }
+
+    return (
+        <div className="main-container">
+            <img src={logo} alt="tindev"></img>
+            {users.length > 0 ? showAll() : showNone() }
 
         </div>
     )
