@@ -6,14 +6,11 @@ import Main from './pages/Main';
 
 
 export default function Routes() {
+
     return (
         <BrowserRouter> 
             <Route path="/" exact component={Login}/>
             <Route path="/main" exact component={Main}/>
-            
-
-           
-
         </BrowserRouter>
     );
 }
