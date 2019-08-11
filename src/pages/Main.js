@@ -9,6 +9,8 @@ import api from '../services/api'
 
 import './Main.css'
 
+import {Link} from 'react-router-dom'
+
 
 
 
@@ -30,12 +32,12 @@ export default function Main({match}) {
 
     async function handleLike(id) {
         await api.post(`/devs/${id}/likes`, null, {headers: { user :match.params.id } });
-        setUsers(users.filter(user => user._id != id));
+        setUsers(users.filter(user => user._id !== id));
     }
 
     async function handleDislike(id) {
         await api.post(`/devs/${id}/dislikes`, null, {headers: { user :match.params.id } });
-        setUsers(users.filter(user => user._id != id));
+        setUsers(users.filter(user => user._id !== id));
     }
 
     const showAll= () => {
@@ -71,7 +73,9 @@ export default function Main({match}) {
 
     return (
         <div className="main-container">
-            <img src={logo} alt="tindev"></img>
+            <Link to='/'>
+                <img src={logo} alt="tindev"></img>
+            </Link>
             {users.length > 0 ? showAll() : showNone() }
 
         </div>
